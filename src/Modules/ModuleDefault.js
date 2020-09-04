@@ -2,9 +2,7 @@ import React from 'react';
 
 // Importing the login component
 import LoginMain from './LoginMain';
-
 import Logo from '../assets/img/spacex-logo-white.png';
-
 import Button from '@material-ui/core/Button';
 
 export default class ModuleDefault extends React.Component {

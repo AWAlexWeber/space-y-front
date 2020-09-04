@@ -12,6 +12,8 @@ export default class DefaultMain extends ModuleDefault {
     
     constructor(props) {
         super(props);
+
+        this.getResourceLevel = this.getResourceLevel.bind(this);
     }
     
     renderFlightTime() {
@@ -44,13 +46,20 @@ export default class DefaultMain extends ModuleDefault {
         return logs;
     }
 
+    getResourceLevel(resourceName) {
+        var resource = this.props.functionSet['getState'](['systemStatus', 'resource', 'resourceLevels', resourceName]);
+        var cap = this.props.functionSet['getState'](['systemStatus', 'resource', 'resourceCaps', resourceName]);
+        var percent = Math.round(resource / cap * 100);
+        return percent
+    }
+
     render() {
         return (            
         <div>
             {this.renderMenuTitle()}
 
             <div className = "moduleOverviewContainer">
-                <ModuleOverview logs = {this.getLogs("reactor")} module = "Reactor" powerLevel = {0} coolantLevel = {0} moduleStatus = {this.getModuleState('reactor')}/>
+                <ModuleOverview logs = {this.getLogs("reactor")} module = "Reactor" powerLevel = {this.getResourceLevel('power')} coolantLevel = {0} moduleStatus = {this.getModuleState('reactor')}/>
                 <ModuleOverview logs = {this.getLogs("coolant")} module = "Coolant" powerLevel = {0} moduleStatus = {this.getModuleState('coolant')}/>
                 <ModuleOverview logs = {this.getLogs("thrusters")} module = "Thrusters" powerLevel = {0} coolantLevel = {0} heatLevel = {0} moduleStatus = {this.getModuleState('thrusters')}/>
                 <ModuleOverview logs = {this.getLogs("oxyscrub")} module = "OxyScrub" powerLevel = {0} moduleStatus = {this.getModuleState('oxyscrub')} oxygenLevel = {0}/>

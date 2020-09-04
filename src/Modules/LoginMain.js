@@ -23,6 +23,11 @@ export default class LoginMain extends React.Component {
         this.disableHack = this.disableHack.bind(this);
     }
 
+    /* Disabling interval */
+    componentDidMount() {
+        this.props.functionSet['stopIntervalUpdate']();
+    }
+
     /* * * Handling user input * * */
     setUsername(event) {
         this.setState({'username': event.target.value});

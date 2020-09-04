@@ -63,7 +63,7 @@ export default class App extends React.Component {
     }
 
     getServerStatus() {
-        this.performAPICall(FULL_URL + "/engine/statusAdvanced", this.getServerStatusCallback, "GET", null)
+        this.performAPICall(FULL_URL + "/engine/statusAdvancedAll", this.getServerStatusCallback, "GET", null)
     }
 
     getServerStatusCallback(result) {
@@ -89,11 +89,12 @@ export default class App extends React.Component {
 
     /* * * * * Interval-based system update * * * * */
     startIntervalUpdate() {
+        console.log("Starting interval update");
         var refMe = this;
         this.stopIntervalUpdate();
         this.intervalUpdate = setInterval(function() {
-            refMe.performAPICall(FULL_URL + "/engine/statusAdvanced", function(result) {refMe.modifyState("systemStatus", result['data'])}, "GET", null);
-        }, 2000);
+            refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", function(result) {refMe.modifyState("systemStatus", result['data'])}, "GET", null);
+        }, 5000);
     }
 
     stopIntervalUpdate() {
