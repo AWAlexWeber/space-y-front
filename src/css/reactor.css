@@ -1,0 +1,68 @@
+.reactorDisplayList {
+    display: flex;
+    width: 60%;
+    margin: 15px;
+    height: 85%;
+}
+
+.reactorDisplayContainer {
+    width: 100%;
+    background-color: #6f6f6f !important;
+    margin: 15px;
+}
+
+.reactorDisplayContainerTitle {
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.reactorDisplayInnerTitle {
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+.reactorTankHolder {
+    width: 96%;
+    height: 60%;
+    margin: 2%;
+    display: flex;
+}
+.reactorTankContainer {
+    height: 100%;
+    width: 40%;
+    margin-left: 3%;
+    margin-right: 6%;
+}
+
+.reactorTankGlass {
+    width: 100%;
+    height: 100% !important;
+    border: solid 4px gray;
+    background-color: #ffffff44;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}
+
+.reactorTankFill {
+    width: 100%;
+}
+
+.reactorContainerTitle {
+    width: 100%;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.reactorDeuterium {
+    background-color: #9f3f0f;
+}
+
+.reactorTritium {
+    background-color: purple;
+}

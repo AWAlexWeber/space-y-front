@@ -1,0 +1,246 @@
+@font-face {
+    font-family: bankgothic;
+    src: url('../assets/font/BankGothic Regular.ttf');
+}
+
+* {
+    font-family: bankgothic;
+}
+
+.fadeOutCover, .fadeinCover {
+    background: black; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #3f3f3f, #4f4f4f);
+    background: -moz-linear-gradient(right, #3f3f3f, #4f4f4f);
+    background: -o-linear-gradient(right, #3f3f3f, #4f4f4f);
+    background: linear-gradient(to left, #3f3f3f, #4f4f4f);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;  
+    width: 100vw !important;
+    height: 1000px !important;
+    position: absolute;
+    float: left;
+}
+
+.fadeOutCover {
+    -webkit-animation: fadeout 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeout 2s; /* Firefox < 16 */
+     -ms-animation: fadeout 2s; /* Internet Explorer */
+      -o-animation: fadeout 2s; /* Opera < 12.1 */
+         animation: fadeout 2s;
+}
+
+.fadeInCover {
+    -webkit-animation: fadein 20s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 20s; /* Firefox < 16 */
+     -ms-animation: fadein 20s; /* Internet Explorer */
+      -o-animation: fadein 20s; /* Opera < 12.1 */
+         animation: fadein 20s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  /* Firefox < 16 */
+  @-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  /* Internet Explorer */
+  @-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  /* Opera < 12.1 */
+  @-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  
+  /* Firefox < 16 */
+  @-moz-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  
+  /* Internet Explorer */
+  @-ms-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  
+  /* Opera < 12.1 */
+  @-o-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+.innerBodyMain {
+  width: 90%;
+  background: #4f4f4f;
+  border: solid 5px #3f3f3f;
+  height: 55%;
+  position: absolute;
+  left: 5%;
+  margin-top: 50px;
+}
+
+.bottomOptions {
+  bottom: 25px !important;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  color: greenyellow;
+  font-size: 64px;
+}
+
+
+.flightTime {
+  bottom: 25px !important;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  color: greenyellow;
+  font-size: 80px;
+}
+
+.innerLogOutButtonContainer {
+  bottom: 15px !important;
+  width: 50% !important;
+  height: 35px;
+  margin-left: 25%;
+  position: absolute !important;
+  text-align: center;
+  display: flex;
+}
+
+.bottomOptionsButton {
+  text-transform: uppercase;
+  outline: 0;
+  background: #5f5f5f;
+  width: 90%;
+  border: 0;
+  padding: 25px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.MuiTabs-indicator {
+  background-color: white !important;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+*::-webkit-scrollbar-track {
+  background: gray;        /* color of the tracking area */
+}
+*::-webkit-scrollbar-thumb {
+  background-color: white;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid gray;  /* creates padding around scroll thumb */
+}
+
+body {
+  margin: 0 !important;
+}
+
+.rebootContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  background: black; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: -moz-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: -o-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: linear-gradient(to left, #3f3f3f, #4f4f4f);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+  width: 100vw !important;
+  position: absolute;
+  float: left;
+}
+
+.rebootext {
+  width: 100%;
+  text-align: center;
+  margin-top: 1%;
+  font-size: 48px;
+  color: white;
+}
+
+.moduleTitleReboot {
+  width: 100%;
+  text-align: center;
+  margin-top: 22%;
+  font-size: 32px;
+  color: white;
+}
+
+.initContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: black; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: -moz-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: -o-linear-gradient(right, #3f3f3f, #4f4f4f);
+  background: linear-gradient(to left, #3f3f3f, #4f4f4f);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+  width: 100vw !important;
+  position: absolute;
+  float: left;
+}
+
+.initTitle {
+  width: 100%;
+  text-align: center;
+  margin-top: 22%;
+  font-size: 48px;
+  color: white;
+}
+
+.initStatus {
+  width: 100%;
+  text-align: center;
+  margin-top: 1%;
+  font-size: 32px;
+  color: white;
+}
+
+.forceOnlineButton {
+  margin-top: 50px !important;
+  width: 350px;
+  height: 55px;
+  font-size: 18px !important;
+}

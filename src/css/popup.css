@@ -1,0 +1,19 @@
+.popupButton {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.popupTitle {
+    text-align: center;
+    font-size: 32px;
+    color: gray;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.popupInfo {
+    text-align: center;
+    font-size: 22px;
+    color: black;
+    margin-bottom: 15px;
+}

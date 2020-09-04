@@ -1,0 +1,51 @@
+.tabContainerTitle {
+    width: 90%;
+    text-align: left;
+    margin-left: 5%;
+    color: white;
+    font-size: 32px;
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+.userList {
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5%;
+    height: 80%;
+    font-size: 20px;
+
+}
+
+.userListRow {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.userListValue {
+    width: 100% !important;
+    min-width: 500px;
+    margin-right: 25px;
+    font-size: 32px;
+}
+
+.newUserContainer {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    bottom: 75px !important;
+    position: absolute;
+}
+
+.newUserContainer * {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.MuiFilledInput-root {
+    color: black !important;
+    background-color: white !important;
+}
