@@ -1,6 +1,7 @@
 import React from 'react';
 import ModuleDefault from '../../ModuleDefault';
 import ReactorDisplay from './ReactorDisplay';
+import ReactorOutputControl from './ReactorOutputControl';
 
 import '../../../css/reactor.css';
 
@@ -32,6 +33,10 @@ export default class ReactorMain extends ModuleDefault {
 
         // Getting the reactor data
         var reactorData = this.props.functionSet['getState'](['systemStatus', 'modules', 'reactor']);
+        console.log(reactorData);
+
+        if (reactorData == null || reactorData == undefined)
+            return (<div />);
 
         return (
             <div>
@@ -39,11 +44,12 @@ export default class ReactorMain extends ModuleDefault {
 
                 <div className = 'innerBodyMain'>
                     <div className = 'reactorDisplayList'>
-                        <ReactorDisplay reactorData = {this.reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {1}/>
-                        <ReactorDisplay reactorData = {this.reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {2}/>
-                        <ReactorDisplay reactorData = {this.reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {3}/>
-                        <ReactorDisplay reactorData = {this.reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {4}/>
-                        <ReactorDisplay reactorData = {this.reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {5}/>
+                        <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {1}/>
+                        <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {2}/>
+                        <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {3}/>
+                        <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {4}/>
+                        <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {5}/>
+                        <ReactorOutputControl />
                     </div>
 
                     {this.renderLogOutButton()}

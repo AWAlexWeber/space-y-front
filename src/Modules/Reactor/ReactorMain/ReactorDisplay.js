@@ -27,6 +27,7 @@ export default class ReactorDisplay extends React.Component {
 
     render() {
         var data = this.props.reactorData;
+        console.log(data);
 
         var status = "Offline";
         var tritLevel = "0";
@@ -44,6 +45,8 @@ export default class ReactorDisplay extends React.Component {
 
             tritLevel = Math.round(trit / tritCap * 100)
             deutLevel = Math.round(deut / deutCap * 100)
+
+            console.log(rData);
         }
 
         return (
@@ -54,6 +57,9 @@ export default class ReactorDisplay extends React.Component {
                 <div className = "reactorTankHolder">
                     <ReactorTank type = {"Tritium"} percentFull = {tritLevel + '%'}/>
                     <ReactorTank type = {"Deuterium"} percentFull = {deutLevel + '%'}/>
+                </div>
+                <div className = "coolantLevelContainer">
+                    Coolant Level: 0%
                 </div>
 
                 <div className = "reactorStatusHolder">

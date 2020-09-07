@@ -89,12 +89,13 @@ export default class App extends React.Component {
 
     /* * * * * Interval-based system update * * * * */
     startIntervalUpdate() {
+        // Don't do anything if we are already updating at interval
         console.log("Starting interval update");
         var refMe = this;
         this.stopIntervalUpdate();
         this.intervalUpdate = setInterval(function() {
             refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", function(result) {refMe.modifyState("systemStatus", result['data'])}, "GET", null);
-        }, 5000);
+        }, 500);
     }
 
     stopIntervalUpdate() {
