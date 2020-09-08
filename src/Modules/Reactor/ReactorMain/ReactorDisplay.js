@@ -1,14 +1,23 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-const FULL_URL = "http://165.22.83.88:5000"
+import _ from 'lodash';
+
+const FULL_URL = "http://localhost:5000"
 
 export default class ReactorDisplay extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // Do not render anything if states are equal
+        var isNextStateSame = _.isEqual(this.state, nextState);
+        var isNextPropsSame = _.isEqual(nextProps, this.props);
+        return !isNextStateSame || !isNextPropsSame;
+    }
     
     onlineReactor() {
         var id = this.props.id;
@@ -27,11 +36,12 @@ export default class ReactorDisplay extends React.Component {
 
     render() {
         var data = this.props.reactorData;
-        console.log(data);
 
         var status = "Offline";
         var tritLevel = "0";
         var deutLevel = "0";
+        var heatResourceLevel = "0%";
+        var coolantResourceLevel = "0%";
 
         if (data != undefined) {
             var rData = data[this.props.id];
@@ -46,7 +56,23 @@ export default class ReactorDisplay extends React.Component {
             tritLevel = Math.round(trit / tritCap * 100)
             deutLevel = Math.round(deut / deutCap * 100)
 
-            console.log(rData);
+            var inHeatLevel = rData["resource"]["resourceLevels"]["heat"]
+            heatResourceLevel = Math.round(inHeatLevel) + "%";
+
+            var inCoolantLevel = rData["resource"]["resourceLevels"]["coolant"]
+            var inCoolantCap = rData["resource"]["resourceCaps"]["coolant"]
+            coolantResourceLevel = Math.round(inCoolantLevel / inCoolantCap * 100) + "%";
+        }
+
+        if (status == "Destroyed") {
+            return (
+                <Paper className = "reactorDisplayContainer" elevation={20}>
+                    <div className = "reactorDisplayContainerTitle">Fusion Reactor</div>
+                    <div className = "reactorDisplayInnerTitle">#00{this.props.id}</div>
+
+                    <div className = "destroyedTitle">Destroyed</div>
+                </Paper>
+            )
         }
 
         return (
@@ -58,12 +84,16 @@ export default class ReactorDisplay extends React.Component {
                     <ReactorTank type = {"Tritium"} percentFull = {tritLevel + '%'}/>
                     <ReactorTank type = {"Deuterium"} percentFull = {deutLevel + '%'}/>
                 </div>
-                <div className = "coolantLevelContainer">
-                    Coolant Level: 0%
-                </div>
 
                 <div className = "reactorStatusHolder">
                     Reactor: {status}
+                </div>
+
+                <div className = "coolantLevelContainer">
+                    <div className = "coolantLevelTitle">Heat</div>
+                    <div className = "levelContainerValue">{heatResourceLevel}</div>
+                    <div className = "coolantLevelTitle">Coolant</div>
+                    <div className = "levelContainerValue">{coolantResourceLevel}%</div>
                 </div>
 
                 <Button className = 'reactorButton' variant="contained" color="primary" onClick = {() => {this.onlineReactor()}}>
@@ -77,6 +107,9 @@ export default class ReactorDisplay extends React.Component {
                 </Button>
                 <Button className = 'reactorButton' variant="contained" color="primary">
                     Fix
+                </Button>
+                <Button className = 'reactorOverrideButton' variant="contained" color="primary" onClick = {() => {this.props.functionSet['performManualOverrideFunction']('reactor', this.props.id, 'reactor-' + this.props.id)}}>
+                    Override
                 </Button>
             </Paper>
         )

@@ -6,20 +6,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
 import '../css/overview.css';
-const FULL_URL = "http://165.22.83.88:5000"
+const FULL_URL = "http://localhost:5000"
 
 export default class DefaultMain extends ModuleDefault {
     
     constructor(props) {
         super(props);
 
+        this.state = {
+            timeNow: new Date()
+        }
+
         this.getResourceLevel = this.getResourceLevel.bind(this);
     }
     
     renderFlightTime() {
+        // Calculating the time
+        var nowTime = this.state.timeNow;
+
+        // Unless we are in a meeting...
+        if (this.props.functionSet['getState'](['systemStatus','meeting','isMeeting'])) {
+            nowTime = this.props.functionSet['getState'](['systemStatus','meeting','meetingTime'])
+            nowTime = new Date(nowTime.replaceAll('"', ''));
+        }
+
+        var meetingMS = this.props.functionSet['getState'](['systemStatus','meeting','meetingMS'])
+        var difference_ms = Math.abs(nowTime - this.props.time) - meetingMS;
+
+        var total_seconds = Math.floor(difference_ms / 1000) % 60;
+        var total_minutes = Math.floor(difference_ms / 60 / 1000) % 60;
+        var total_hours = Math.floor(difference_ms / 60 / 60 / 1000);
+
+        if (total_seconds < 10) {
+            total_seconds = '0' + total_seconds;
+        }
+
+        if (total_minutes < 10) {
+            total_minutes = '0' + total_minutes;
+        }
+
+        var timeVar = total_hours + ":" + total_minutes + ":" + total_seconds;
+
         return (
             <div className = "flightTime">
-                <div>T+ {this.props.time}</div>
+                <div>T+ {timeVar}</div>
             </div>
         )
     }
@@ -35,10 +65,15 @@ export default class DefaultMain extends ModuleDefault {
     /* Performing our constant engine API calls */
     componentDidMount() {
         this.props.functionSet['startIntervalUpdate']();
+        var refMe = this;
+        this.renderInterval = setInterval(function() {
+            refMe.setState({timeNow: new Date()});
+        }, 100);
     }
 
     componentWillUnmount() {
         this.props.functionSet['stopIntervalUpdate']();
+        clearInterval(this.renderInterval);
     }
 
     getLogs(module) {

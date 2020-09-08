@@ -5,7 +5,7 @@ import ReactorOutputControl from './ReactorOutputControl';
 
 import '../../../css/reactor.css';
 
-const FULL_URL = "http://165.22.83.88:5000"
+const FULL_URL = "http://localhost:5000"
 
 export default class ReactorMain extends ModuleDefault {
     
@@ -49,7 +49,7 @@ export default class ReactorMain extends ModuleDefault {
                         <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {3}/>
                         <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {4}/>
                         <ReactorDisplay reactorData = {reactorData} functionSet = {this.props.functionSet} stateValues = {this.props.stateValues} id = {5}/>
-                        <ReactorOutputControl />
+                        <ReactorOutputControl functionSet = {this.props.functionSet}/>
                     </div>
 
                     {this.renderLogOutButton()}

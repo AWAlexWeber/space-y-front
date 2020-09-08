@@ -244,3 +244,72 @@ body {
   height: 55px;
   font-size: 18px !important;
 }
+
+.MuiSwitch-colorSecondary.Mui-checked {
+  color: white !important;
+}
+
+.MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
+  background-color: white !important;
+}
+
+/* Override section */
+.overrideContainer {
+  width: 45vw;
+  height: 44vh;
+}
+
+.overrideTitle {
+  font-size: 32px;
+  text-align: center;
+}
+
+.overrideTitleSubmodule {
+  font-size: 24px;
+  text-align: center;
+}
+
+.overrideInputField {
+  margin-left: 10% !important;
+}
+
+.overrideContainer .MuiInput-root, .overrideContainer .MuiFormControl-root {
+  width: 95% !important;
+  font-size: 98px !important;
+  margin-top: 55px;
+}
+
+.overrideContainer input {
+  text-align: center !important;
+}
+
+.overrideButton {
+  width: 90% !important;
+  margin-left: 5% !important;
+  font-size: 32px !important;
+  margin-top: 15px !important;
+}
+
+/* Meeting display */
+
+.meetingContainer {
+  position: absolute;
+  z-index: 500;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff60;
+}
+
+.meetingBanner {
+  width: 100%;
+  height: 10%;
+  background-color: red;
+  margin-top: 1%;
+}
+
+.meetingTitle {
+  font-size: 66px;
+  color: white;
+  text-align: center;
+  padding-top: 25px;
+}

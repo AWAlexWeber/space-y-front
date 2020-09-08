@@ -23,9 +23,13 @@ export default class LoginMain extends React.Component {
         this.disableHack = this.disableHack.bind(this);
     }
 
-    /* Disabling interval */
-    componentDidMount() {
-        this.props.functionSet['stopIntervalUpdate']();
+    renderMenuTitle() {
+        return (
+            <div>
+                <img src={Logo} className = "loginlogoadjusted" alt="Logo" />
+                <div className = "form-title">{this.props.title}</div>
+            </div>
+        )
     }
 
     /* * * Handling user input * * */
@@ -39,16 +43,6 @@ export default class LoginMain extends React.Component {
 
     attemptLogin(event) {
         this.props.functionSet['attemptLogin'](this.state.username, this.state.password, this.props.module);
-    }
-
-    renderMenuTitle() {
-
-        return (
-            <div>
-                <img src={Logo} className = "loginlogo" alt="Logo" />
-                <div className = "form-title">{this.props.title}</div>
-            </div>
-        )
     }
 
     performHack() {

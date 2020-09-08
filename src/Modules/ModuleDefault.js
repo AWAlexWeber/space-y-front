@@ -12,6 +12,7 @@ export default class ModuleDefault extends React.Component {
 
         this.renderLogOutButton = this.renderLogOutButton.bind(this);
         this.performReboot = this.performReboot.bind(this);
+        this.renderMenuTitle = this.renderMenuTitle.bind(this);
     }
 
     /* * * * Fail render * * * */
@@ -39,7 +40,7 @@ export default class ModuleDefault extends React.Component {
         }
 
         if (this.isModuleOffline()) {
-            return <Offline performReboot = {this.performReboot} functionSet = {this.props.functionSet} title = {this.props.title}/>;
+            return <Offline renderMenuTitle = {this.renderMenuTitle} performReboot = {this.performReboot} functionSet = {this.props.functionSet} title = {this.props.title}/>;
         }
 
         if (!this.isAccount()) {
@@ -73,13 +74,31 @@ export default class ModuleDefault extends React.Component {
 
     renderReboot() {
         return (
-            <Reboot functionSet = {this.props.functionSet} title = {this.props.title}/>
+            <Reboot renderMenuTitle = {this.renderMenuTitle} functionSet = {this.props.functionSet} title = {this.props.title}/>
         )
     }
 
     renderMenuTitle() {
+        // If we are in meeting mode, render meeting mode on the top, and place overlay over the screen
+        var isMeeting = this.props.functionSet['getState'](['systemStatus','meeting']);
+        var meetingDisplay = null;
+
+        if (isMeeting != undefined) {
+            isMeeting = this.props.functionSet['getState'](['systemStatus','meeting','isMeeting']);
+
+            if (isMeeting) {
+                meetingDisplay =
+                <div className = "meetingContainer">
+                    <div className = "meetingBanner">
+                        <div className = "meetingTitle">EMERGENCY MEETING: RETURN TO COMMAND CENTER</div>
+                    </div>
+                </div>
+            }
+        }
+
         return (
             <div>
+                {meetingDisplay}
                 <img src={Logo} className = "loginlogo" alt="Logo" />
                 <div className = "form-title">{this.props.title}</div>
             </div>

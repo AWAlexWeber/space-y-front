@@ -10,7 +10,7 @@ import { faUsers, faClipboard, faList, faMap, faTools, faTrash } from '@fortawes
 
 import '../../../css/admin.css';
 
-const FULL_URL = "http://165.22.83.88:5000"
+const FULL_URL = "http://localhost:5000"
 
 export default class AdminTabs extends React.Component {
     constructor(props) {
@@ -82,11 +82,11 @@ class ManageUsers extends React.Component {
     }
 
     addCredentials() {
-        if(this.state.username.length <= 0 || this.state.password.length <= 0)
+        if(this.state.username.length <= 0 || this.state.password.length <= 0 || this.state.fullname.length <= 0)
             this.failLogin();
         
         var refMe = this;
-        this.props.functionSet['performAPICall'](FULL_URL + "/cred/add", refMe.getUserListCallback, "POST", JSON.stringify({username: this.state.username, password: this.state.password}));
+        this.props.functionSet['performAPICall'](FULL_URL + "/cred/add", refMe.getUserListCallback, "POST", JSON.stringify({username: this.state.username, password: this.state.password, name: this.state.fullname}));
         this.setState({username: "", password: ""});
         this.getAllCredentials();
     }
@@ -104,8 +104,11 @@ class ManageUsers extends React.Component {
 
     getUserListCallback(result) {
         var userStateList = []
-        for (const [key, value] of Object.entries(result['data'])) {
+        console.log(result);
+        for (const [key, value] of Object.entries(result['data']['credentials'])) {
+            var fullname = result['data']['names'][key]
             userStateList.push(<div className = "userListRow">
+                <div className = "userListValue">{fullname}</div>
                 <div className = "userListValue">{key}</div>
                 <div className = "userListValue">{value}</div>
                 <div className = "userListValue"><FontAwesomeIcon icon={faTrash} onClick={() => {this.deleteCredentials(key)}}/></div>
@@ -122,12 +125,17 @@ class ManageUsers extends React.Component {
         this.setState({password: e.target.value});
     }
 
+    handleNameChange(e) {
+        this.setState({fullname: e.target.value});
+    }
+
     render() {
         return (
             <div className = "userListContainer">
                 <div className = "tabContainerTitle">System User List</div>
                 <div className = "userList">
                     <div className = "userListRow">
+                        <div className = "userListValue" style = {{color: "#8f8f8f", fontSize: 24}}>Full Name</div>
                         <div className = "userListValue" style = {{color: "#8f8f8f", fontSize: 24}}>Username</div>
                         <div className = "userListValue" style = {{color: "#8f8f8f", fontSize: 24}}>Password</div>
                         <div className = "userListValue" style = {{color: "#8f8f8f", fontSize: 24}}>Delete</div>
@@ -138,6 +146,7 @@ class ManageUsers extends React.Component {
                 </div>
 
                 <div className = "newUserContainer">
+                    <TextField onChange = {(e) => {this.handleNameChange(e);}} color = "primary" id="filled-basic" label="Full Name" variant="filled" value = {this.state.fullname}/>
                     <TextField onChange = {(e) => {this.handleChangeUsername(e);}} color = "primary" id="filled-basic" label="Username" variant="filled" value = {this.state.username}/>
                     <TextField onChange = {(e) => {this.handleChangePassword(e);}} color = "primary" id="filled-basic" label="Password" variant="filled" value = {this.state.password}/>
                     <Button variant="contained" color="primary" onClick={() => {this.addCredentials();}}>Add User</Button>

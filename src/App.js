@@ -1,5 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
+import _ from 'lodash';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 // Importing the components
 import DefaultMain from './Modules/DefaultMain';
@@ -15,7 +20,7 @@ import PopUp from './Modules/PopUp';
 import Logo from './assets/img/spacex-logo-white.png';
 import './css/main.css';
 
-const FULL_URL = "http://165.22.83.88:5000"
+const FULL_URL = "http://localhost:5000"
 
 export default class App extends React.Component {
 
@@ -52,6 +57,12 @@ export default class App extends React.Component {
         this.setPopupContent = this.setPopupContent.bind(this);
         this.attemptHack = this.attemptHack.bind(this);
         this.completeHack = this.completeHack.bind(this);
+        this.handleStatusAdvancedAllCallback = this.handleStatusAdvancedAllCallback.bind(this);
+        this.performManualOverrideFunction = this.performManualOverrideFunction.bind(this);
+
+        this.performManualOverrideAPICall = this.performManualOverrideAPICall.bind(this);
+        this.performManualOverrideCallback = this.performManualOverrideCallback.bind(this);
+        this.performManualOverrideFunction = this.performManualOverrideFunction.bind(this);
     }
 
     /* * * * Startup Sequencing * * * */
@@ -83,7 +94,7 @@ export default class App extends React.Component {
 
             setTimeout(function() {
                 refMe.setState({initializedState: true})
-            }, 1000);
+            }, 500);
         }
     }
 
@@ -94,8 +105,17 @@ export default class App extends React.Component {
         var refMe = this;
         this.stopIntervalUpdate();
         this.intervalUpdate = setInterval(function() {
-            refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", function(result) {refMe.modifyState("systemStatus", result['data'])}, "GET", null);
+            refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", refMe.handleStatusAdvancedAllCallback, "GET", null);
         }, 500);
+    }
+
+    handleStatusAdvancedAllCallback(result) {
+        // We will skip invalid results
+        if (result == null || result == undefined)
+            return;
+        else {
+            this.modifyState("systemStatus", result['data']);
+        }
     }
 
     stopIntervalUpdate() {
@@ -124,10 +144,19 @@ export default class App extends React.Component {
     }
 
     modifyState(key, value) {
-        let tempState = this.state.stateValues;
+        let tempState = JSON.parse(JSON.stringify(this.state.stateValues));
         tempState[key] = value;
 
         this.setState({stateValues: tempState});
+    }
+
+    // Working in tandem with modify state to ensure that we do not re-render everything if we're just loading the exact same state in
+    // This is most relevant when continuously making the same api calls
+    shouldComponentUpdate(nextProps, nextState) {
+        // Do not render anything if states are equal
+        var isNextStateSame = _.isEqual(this.state, nextState);
+        var isNextPropsSame = _.isEqual(nextProps, this.props);
+        return !isNextStateSame || !isNextPropsSame;
     }
 
     attemptLogin(username, password, module) {
@@ -242,6 +271,40 @@ export default class App extends React.Component {
         var rebootModuleStatus = rebootInfo[module]['rebootStatus'];
         return rebootModuleStatus;
     }
+
+    performManualOverrideAPICall(url) {
+        this.performAPICall(url, this.performManualOverrideCallback, "GET", null);
+        this.closePopup();
+    }
+
+    performManualOverrideCallback(result) {
+        console.log(result);
+    }
+
+    performManualOverrideFunction(module, subModule, subModuleTitle) {
+        this.stopIntervalUpdate();
+
+        var fullURL = FULL_URL + "/" + module + "/" + subModule + "/override";
+
+        // Showing manual override popup
+        var subModuleRender = null;
+        if (subModule != undefined && subModule.length > 0)
+            subModuleRender = <div className = "overrideTitleSubmodule">Submodule {subModuleTitle}</div>;
+
+        this.setPopupContent(
+        <div className = "overrideContainer">
+            <div className = "overrideTitle">Manual Override Command for {module}</div>
+            {subModuleRender}
+            <div className = "overrideInputField">
+                <TextField className = "overrideInput"></TextField>
+            </div>
+            <Button onClick = {() => {this.performManualOverrideAPICall(fullURL)}}className = "overrideButton" variant="contained" color="primary">Override</Button>
+        </div>
+        );
+
+        // Loading popup
+        this.loadPopup()
+    }
     
 
     render() {
@@ -266,11 +329,18 @@ export default class App extends React.Component {
             'stopIntervalUpdate': this.stopIntervalUpdate,
             'startIntervalUpdate': this.startIntervalUpdate,
             'setPopupContent': this.setPopupContent,
-            'attemptHack': this.attemptHack
+            'attemptHack': this.attemptHack,
+            'performManualOverrideFunction': this.performManualOverrideFunction
+        }
+
+        // Time
+        var timeVar = '';
+        if (this.state.stateValues.systemStatus != undefined) {
+            var timeVar = new Date(this.state.stateValues.systemStatus.time.replaceAll('"', ''));
         }
 
         let routerViews = [
-            <DefaultMain time = {this.state.stateValues.systemStatus.time} title = {"Systems Overview"} functionSet = {functionSet} stateValues = {this.state.stateValues}/>,
+            <DefaultMain time = {timeVar} title = {"Systems Overview"} functionSet = {functionSet} stateValues = {this.state.stateValues}/>,
             <AdminMain internTitle = {'admin'} title = {"Administration Portal"} functionSet = {functionSet} stateValues = {this.state.stateValues}/>,
             <CommandMain internTitle = {'command'} title = {"Command Module"} functionSet = {functionSet} stateValues = {this.state.stateValues}/>,
             <CoolantMain internTitle = {'coolant'} title = {"Primary Coolant Plant"} functionSet = {functionSet} stateValues = {this.state.stateValues}/>,
