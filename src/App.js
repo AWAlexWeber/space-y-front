@@ -70,6 +70,7 @@ export default class App extends React.Component {
         var refMe = this;
         setTimeout(function() {
             refMe.getServerStatus();
+            refMe.startIntervalUpdate();
         }, 5000);
     }
 
@@ -156,7 +157,8 @@ export default class App extends React.Component {
         // Do not render anything if states are equal
         var isNextStateSame = _.isEqual(this.state, nextState);
         var isNextPropsSame = _.isEqual(nextProps, this.props);
-        return !isNextStateSame || !isNextPropsSame;
+        var shouldRender = !isNextStateSame || !isNextPropsSame;
+        return shouldRender;
     }
 
     attemptLogin(username, password, module) {
@@ -352,13 +354,13 @@ export default class App extends React.Component {
         return (
             <div>
                 <BrowserRouter>
-                    <Route exact path = "/" component = {() => routerViews[0]}></Route>
-                    <Route path = "/admin" component = {() => routerViews[1]}></Route>
-                    <Route path = "/command" component = {() => routerViews[2]}></Route>
-                    <Route path = "/coolant" component = {() => routerViews[3]}></Route>
-                    <Route path = "/oxyscrub" component = {() => routerViews[4]}></Route>
-                    <Route path = "/reactor" component = {() => routerViews[5]}></Route>
-                    <Route path = "/thrusters" component = {() => routerViews[6]} ></Route>
+                    <Route exact path = "/" render = {() => routerViews[0]}></Route>
+                    <Route path = "/admin" render = {() => routerViews[1]}></Route>
+                    <Route path = "/command" render = {() => routerViews[2]}></Route>
+                    <Route path = "/coolant" render = {() => routerViews[3]}></Route>
+                    <Route path = "/oxyscrub" render = {() => routerViews[4]}></Route>
+                    <Route path = "/reactor" render = {() => routerViews[5]}></Route>
+                    <Route path = "/thrusters" render = {() => routerViews[6]} ></Route>
                 </BrowserRouter>
                 <PopUp popupContent = {this.state.popupContent} closePopup = {this.closePopup} isOpen = {this.state.popupOpen}/>
             </div>

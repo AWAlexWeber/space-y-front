@@ -1,0 +1,120 @@
+.innerContainerLeft {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    float: left;
+}
+
+.oxyScrubContainer {
+    width: 100%;
+    height: 80%;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: #6f6f6f !important;
+    padding: 15px;
+}
+
+.oxyScrubTitle {
+    color: white;
+    text-align:center;
+    font-size: 18px;
+    margin: 5px;
+}
+
+.oxyScrubStatus {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.bottomButtonFinalHolder {
+    width: 100%;
+}
+
+.oxyButton {
+    width: 100%;
+    margin: 5px !important;
+    height: 25px !important;
+}
+
+.oxyOverrideButton {
+    width: 100%;
+    margin-top: 5px !important;
+    margin: 5px !important;
+    background-color: #803030 !important;
+    height: 25px !important;
+}
+
+.oxyScrubFilterContainer {
+    width: 100%;
+    height: 30%;
+    margin-bottom: 75px;
+}
+
+.oxyScrubFilterContainerRow {
+    width: 98%;
+    margin-left: 1%;
+    height: 50%;
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.filterIcon {
+    color: white;
+    text-align: center;
+    font-size: 32px;
+    width: 50%;
+    height: 44px;
+    padding-top: 10px;
+    margin-left: 23%;
+    border: solid 3px white;
+    border-radius: 100%;
+    background-color: #202020;
+    margin-top: 5px;
+    animation: spin 0.9s linear infinite;
+}
+
+.filterContainerTitle {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+.filterContainer {
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+    background-color: #8f8f8f;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    border-radius: 15px;
+}
+
+.oxyScrubEffTitle {
+    color: white;
+    text-align: center;
+}
+
+.oxyScrubEfficiency {
+    color: white;
+    text-align: center;
+    font-size: 32px;
+}
+
+.innerContainerRight {
+    width: 30%;
+    height: 100%;
+    background-color: red;
+    float: right;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

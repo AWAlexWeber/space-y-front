@@ -17,6 +17,11 @@ export default class VerticalTank extends React.Component {
         var displayPercentFull = this.props.percentFull * (100 / this.props.incrementMax);
         displayPercentFull += '%';
 
+        var extraDisplayClass = ""
+        if (this.props.displayClass != undefined) {
+            extraDisplayClass = this.props.displayClass;
+        }
+
         return (
             <div className = "verticalTankContainer">
                 <div className = "verticalTankContainerTitle">{this.props.title}</div>
@@ -26,7 +31,7 @@ export default class VerticalTank extends React.Component {
                         {inidcatorList}
                     </div>
                     <div className = "verticalTankContainerGlass">
-                        <div style = {{height: displayPercentFull, backgroundColor: this.props.displayColor}} className = "verticalTankContainerFill"></div>
+                        <div style = {{height: displayPercentFull, backgroundColor: this.props.displayColor}} className = {extraDisplayClass + " verticalTankContainerFill"}></div>
                     </div>
                 </div>
             </div>

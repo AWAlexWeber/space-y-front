@@ -61,3 +61,11 @@
     height: 100%;
     text-align: right;
 }
+
+.reactorDeuterium {
+    background-image: url("../assets/img/toxic-base-red.png");
+}
+
+.reactorTritium {
+    background-image: url("../assets/img/toxic-base-purple.png");
+}

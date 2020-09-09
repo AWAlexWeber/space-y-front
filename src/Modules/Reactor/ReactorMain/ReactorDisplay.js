@@ -93,7 +93,7 @@ export default class ReactorDisplay extends React.Component {
                     <div className = "coolantLevelTitle">Heat</div>
                     <div className = "levelContainerValue">{heatResourceLevel}</div>
                     <div className = "coolantLevelTitle">Coolant</div>
-                    <div className = "levelContainerValue">{coolantResourceLevel}%</div>
+                    <div className = "levelContainerValue">{coolantResourceLevel}</div>
                 </div>
 
                 <Button className = 'reactorButton' variant="contained" color="primary" onClick = {() => {this.onlineReactor()}}>

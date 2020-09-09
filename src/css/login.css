@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 90%;
-  margin-left: 5% !important;
+  width: 30%;
+  margin-left: 35% !important;
   padding: 8% 0 0;
   margin: auto;
 }
@@ -23,7 +23,7 @@
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 84px;
+  font-size: 24px;
 }
 .form .button {
   text-transform: uppercase;
@@ -142,5 +142,5 @@ body {
 }
 
 .login-form Button {
-  font-size: 48px !important;
+  font-size: 18px !important;
 }

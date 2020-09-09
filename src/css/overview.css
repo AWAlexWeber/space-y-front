@@ -156,9 +156,10 @@
     display: flex;
     justify-content: center;
     width: 80%;
+    height: 25px;
     margin-left: 10%;
     margin-top: 15px;
-    border-bottom: solid 2px #3f3f3f;
+    border-bottom: solid 2px white;
 }
 
 .heatTitle {
@@ -171,5 +172,6 @@
 .heatAmount {
     font-weight: bold;
     text-align: right;
+    color: #f3ff00;
     width: 50%;
 }

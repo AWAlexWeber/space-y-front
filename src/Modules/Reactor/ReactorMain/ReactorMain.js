@@ -16,16 +16,6 @@ export default class ReactorMain extends ModuleDefault {
         this.state = {}
     }
 
-    componentDidMount() {
-        // Only do this if we did not fail render state
-        if (!this.isFailRender())
-            this.props.functionSet['startIntervalUpdate']();
-    }
-
-    componentWillUnmount() {
-        this.props.functionSet['stopIntervalUpdate']();
-    }
-
     render() {
         if (this.isFailRender()) {
             return this.failRender();

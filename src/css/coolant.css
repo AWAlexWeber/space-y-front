@@ -1,0 +1,226 @@
+.coolantInnerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+
+    width: 100%;
+    height: 100%;
+}
+
+.coolantLeftContainer {
+    width: 100%;
+    height: 90%;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 25px;
+}
+
+.coolantTopRow, .coolantBottomRow {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.coolantRightContainer {
+    width: 50%;
+    height: 79%;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 25px;
+    padding: 5px;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    
+    display: flex;
+    flex-direction: row;
+
+    background-color: #6f6f6f !important;
+}
+
+.coolantControllerContainer {
+    height: 90%;
+    width: 90%;
+    margin-left: 1%;
+    margin-right: 1%;
+    background-color: #6f6f6f !important;
+    display: flex;
+    flex-direction: row;
+}
+
+.coolantRightContainer .reactorOutputControlSwitchContainer {
+    width: 200% !important;
+}
+
+.coolantRightContainer .switchReactorTitle {
+    font-size: 28px !important;
+    margin-top: 15px;
+}
+
+.coolantRightContainer .switchContainerReactor svg {
+    font-size: 60px !important;
+    margin-left: 39% !important;
+}
+
+.coolantRightContainer .switchStatusTitle {
+    font-size: 22px !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.coolantRightContainer .switchContainerReactorMainTitle {
+    font-size: 28px !important;
+    margin-bottom: 15px;
+}
+
+/* Coolant Controller */
+
+.coolantControlLeftSide {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 28%;
+}
+
+.coolantSpinnerContainer {
+    background-color: gray;
+    width: 132px;
+    height: 132px;
+    padding: 24px;
+    border-radius: 100%;
+    transition-duration: 0.5s;
+    margin-bottom: 15px;
+    margin-left: 0%;
+}
+
+.coolantSpinner {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-left: 16px solid #3498db; /* Blue */
+    border-right: 16px solid #3498db; /* Blue */
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+}
+
+.coolantLevelSlider {
+    width: 80% !important;
+    margin-left: 10%;
+    margin-top: -5%;
+    height: 5px !important;
+}
+
+.MuiSlider-markActive {
+    color: white;
+}
+
+.MuiSlider-mark {
+    color: gray !important;
+}
+
+.MuiSlider-track {
+    color: #afafaf !important;
+}
+
+.MuiSlider-rail {
+    color: #5f5f5f;
+}
+
+.MuiSlider-thumb  {
+    color: white;
+}
+
+.MuiSlider-valueLabel {
+    color: gray !important;
+}
+
+.MuiTypography-root {
+    text-align: center;
+    color: white;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spin_10 {
+    animation: spin 10s linear infinite;
+}
+
+.spin_20 {
+    animation: spin 2s linear infinite;
+}
+
+.spin_30 {
+    animation: spin 0.9s linear infinite;
+}
+
+.spin_40 {
+    animation: spin 0.4s linear infinite;
+}
+
+.spin_50 {
+    animation: spin 0.2s linear infinite;
+}
+
+.setCoolantSpeedButton {
+    background-color: gray !important;
+    color: white !important;
+    height: 20px !important;
+    width: 90% !important;
+    margin-left: 5% !important;
+}
+
+.coolantCurrentSpeed {
+    float: left !important;
+    margin-left: 24%;
+    color: white;
+    margin-bottom: -115px;
+    margin-top: 70px;
+    font-size: 48px;
+    z-index: 500;
+    width: 50%;
+    text-align: center;
+}
+
+/* Center */
+.coolantControlCenter {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 20%;
+}
+
+.coolantCentralTitle {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin: 15px;
+}
+
+.coolantButton {
+    width: 90%;
+    margin-left: 5% !important;
+    margin-top: 5px !important;
+    height: 35px !important;
+}
+
+.coolantOverrideButton {
+    width: 90%;
+    margin-left: 5% !important;
+    margin-top: 25px !important;
+    height: 55px !important;
+    background-color: #803030 !important;
+}
+
+/* Right */
+.coolantControlRight {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 70%;
+    padding-top: 55px;
+    padding-right: 15px;
+    padding-left: 15px;
+}

@@ -18,6 +18,7 @@ export default class DefaultMain extends ModuleDefault {
         }
 
         this.getResourceLevel = this.getResourceLevel.bind(this);
+        this.getReactorInternalResourceLevel = this.getReactorInternalResourceLevel.bind(this);
     }
     
     renderFlightTime() {
@@ -88,14 +89,26 @@ export default class DefaultMain extends ModuleDefault {
         return percent
     }
 
+    getInternalResourceLevel(moduleName, resourceName) {
+        var resource = this.props.functionSet['getState'](['systemStatus', 'modules', moduleName, 'resourceLevels', resourceName]);
+        var cap = this.props.functionSet['getState'](['systemStatus', 'resource', 'resourceCaps', resourceName]);
+        var percent = Math.round(resource / cap * 100);
+        return percent
+    }
+
+    getReactorInternalResourceLevel(resourceName) {
+        var resource = this.props.functionSet['getState'](['systemStatus', 'modules', 'reactor', resourceName]);
+        return resource
+    }
+
     render() {
         return (            
         <div>
             {this.renderMenuTitle()}
 
             <div className = "moduleOverviewContainer">
-                <ModuleOverview logs = {this.getLogs("reactor")} module = "Reactor" powerLevel = {this.getResourceLevel('power')} coolantLevel = {0} moduleStatus = {this.getModuleState('reactor')}/>
-                <ModuleOverview logs = {this.getLogs("coolant")} module = "Coolant" powerLevel = {0} moduleStatus = {this.getModuleState('coolant')}/>
+                <ModuleOverview logs = {this.getLogs("reactor")} heatLevel = {this.getReactorInternalResourceLevel('moduleHeat')} module = "Reactor" powerLevel = {this.getResourceLevel('power')} coolantLevel = {this.getReactorInternalResourceLevel('moduleCoolant')} moduleStatus = {this.getModuleState('reactor')}/>
+                <ModuleOverview logs = {this.getLogs("coolant")} heatLevel = {0} module = "Coolant" powerLevel = {0} moduleStatus = {this.getModuleState('coolant')}/>
                 <ModuleOverview logs = {this.getLogs("thrusters")} module = "Thrusters" powerLevel = {0} coolantLevel = {0} heatLevel = {0} moduleStatus = {this.getModuleState('thrusters')}/>
                 <ModuleOverview logs = {this.getLogs("oxyscrub")} module = "OxyScrub" powerLevel = {0} moduleStatus = {this.getModuleState('oxyscrub')} oxygenLevel = {0}/>
                 <ModuleOverview logs = {this.getLogs("command")} module = "Command" powerLevel = {0} moduleStatus = {this.getModuleState('command')}/>
@@ -124,8 +137,8 @@ class ModuleOverview extends React.Component {
             oxygenLevel = <PowerLevel title = "Ship Oxygen" powerLevel = {this.props.oxygenLevel} />;
 
 
-        if (this.props.module == "Thrusters")
-            thrusterheat = <ThrusterHeatLevel heatLevel = {0}/>;
+        if (this.props.module == "Thrusters" || this.props.module == "Reactor")
+            thrusterheat = <ThrusterHeatLevel heatLevel = {this.props.heatLevel}/>;
 
         if (this.props.module == "Reactor")
             powerTitle = "Power Production"
