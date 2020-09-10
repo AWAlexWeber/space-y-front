@@ -90,8 +90,8 @@ export default class DefaultMain extends ModuleDefault {
     }
 
     getInternalResourceLevel(moduleName, resourceName) {
-        var resource = this.props.functionSet['getState'](['systemStatus', 'modules', moduleName, 'resourceLevels', resourceName]);
-        var cap = this.props.functionSet['getState'](['systemStatus', 'resource', 'resourceCaps', resourceName]);
+        var resource = this.props.functionSet['getState'](['systemStatus', 'modules', moduleName, 'resource', 'resourceLevels', resourceName]);
+        var cap = this.props.functionSet['getState'](['systemStatus', 'modules', moduleName, 'resource', 'resourceCaps', resourceName]);
         var percent = Math.round(resource / cap * 100);
         return percent
     }
@@ -108,9 +108,9 @@ export default class DefaultMain extends ModuleDefault {
 
             <div className = "moduleOverviewContainer">
                 <ModuleOverview logs = {this.getLogs("reactor")} heatLevel = {this.getReactorInternalResourceLevel('moduleHeat')} module = "Reactor" powerLevel = {this.getResourceLevel('power')} coolantLevel = {this.getReactorInternalResourceLevel('moduleCoolant')} moduleStatus = {this.getModuleState('reactor')}/>
-                <ModuleOverview logs = {this.getLogs("coolant")} heatLevel = {0} module = "Coolant" powerLevel = {0} moduleStatus = {this.getModuleState('coolant')}/>
+                <ModuleOverview logs = {this.getLogs("coolant")} heatLevel = {0} module = "Coolant" powerLevel = {this.getInternalResourceLevel('coolant','power')} moduleStatus = {this.getModuleState('coolant')}/>
                 <ModuleOverview logs = {this.getLogs("thrusters")} module = "Thrusters" powerLevel = {0} coolantLevel = {0} heatLevel = {0} moduleStatus = {this.getModuleState('thrusters')}/>
-                <ModuleOverview logs = {this.getLogs("oxyscrub")} module = "OxyScrub" powerLevel = {0} moduleStatus = {this.getModuleState('oxyscrub')} oxygenLevel = {0}/>
+                <ModuleOverview logs = {this.getLogs("oxyscrub")} module = "OxyScrub" powerLevel = {this.getInternalResourceLevel('oxyscrub','power')} moduleStatus = {this.getModuleState('oxyscrub')} oxygenLevel = {this.getResourceLevel('oxygen')}/>
                 <ModuleOverview logs = {this.getLogs("command")} module = "Command" powerLevel = {0} moduleStatus = {this.getModuleState('command')}/>
             </div>
 

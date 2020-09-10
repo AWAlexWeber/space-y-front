@@ -37,27 +37,27 @@
 .oxyButton {
     width: 100%;
     margin: 5px !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
     height: 25px !important;
 }
 
 .oxyOverrideButton {
     width: 100%;
-    margin-top: 5px !important;
+    margin-top: 1px !important;
     margin: 5px !important;
     background-color: #803030 !important;
-    height: 25px !important;
+    height: 35px !important;
 }
 
 .oxyScrubFilterContainer {
     width: 100%;
-    height: 30%;
-    margin-bottom: 75px;
 }
 
 .oxyScrubFilterContainerRow {
     width: 98%;
     margin-left: 1%;
-    height: 50%;
+    height: 65%;
     display: flex;
     justify-content: start;
     flex-direction: row;
@@ -66,23 +66,49 @@
 }
 
 .filterIcon {
-    color: white;
+    color: #4f4f4f;
     text-align: center;
-    font-size: 32px;
-    width: 50%;
-    height: 44px;
-    padding-top: 10px;
-    margin-left: 23%;
+    font-size: 22px;
+    width: 30px;
+    height: 26px;
+    padding-top: 5px;
+    margin-left: 35%;
     border: solid 3px white;
     border-radius: 100%;
-    background-color: #202020;
+    background-color: #303030;
     margin-top: 5px;
-    animation: spin 0.9s linear infinite;
+}
+
+.spinAirFilter {
+    animation: spin 1s linear infinite;
+    font-weight: 800;
+    color: white;
+}
+
+.filterDegredationLevel {
+    color: white;
+    text-align: center;
+    margin-top: 5px;
 }
 
 .filterContainerTitle {
     color: white;
     font-size: 14px;
+    text-align: center;
+}
+
+.replaceFilterButton {
+    width: 80%;
+    margin-left: 10% !important;
+    height: 15px !important;
+    font-size: 12px !important;
+    margin-top: 3px !important;
+}
+
+.filterTitle {
+    color: white;
+    font-weight: 800;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -105,13 +131,20 @@
     color: white;
     text-align: center;
     font-size: 32px;
+    margin-bottom: 15px;
+    margin-top: 2px;
 }
 
 .innerContainerRight {
-    width: 30%;
-    height: 100%;
-    background-color: red;
+    width: 25%;
+    height: 79%;
+    padding: 20px;
     float: right;
+    display: flex;
+    margin-right: 25px;
+    margin-top: 15px;
+    flex-direction: row;
+    background-color: #6f6f6f !important;
 }
 
 @keyframes spin {

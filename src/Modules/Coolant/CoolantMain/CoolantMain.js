@@ -19,6 +19,21 @@ export default class CoolantMain extends ModuleDefault {
         super(props);
     }
 
+    getModuleResource(resource) {
+        var moduleInfo = this.props.functionSet['getState'](['systemStatus', 'modules', 'coolant']);
+        var name = 'module' + resource
+        var resource = moduleInfo[name]
+        return resource
+    }
+
+    getGlobalResource(resourceTitle) {
+        var moduleInfo = this.props.functionSet['getState'](['systemStatus', 'resource']);
+        var resource = moduleInfo['resourceLevels'][resourceTitle];
+        var cap = moduleInfo['resourceCaps'][resourceTitle];
+        var percent = Math.round(resource / cap * 100);
+        return percent
+    }
+
     render() {
         if (this.isFailRender()) {
             return this.failRender();
@@ -42,9 +57,9 @@ export default class CoolantMain extends ModuleDefault {
                         </div>
                         <Paper className = "coolantRightContainer" elevation={20}>
                             <CoolantOutputControl functionSet = {this.props.functionSet} stateValues = {this.props.stateValues}/>
-                            <VerticalTank displayColor = {"#ecffff"} incrementAmount = {10} incrementMax = {100} percentFull={55} title = {'Oxygen'}/>
-                            <VerticalTank displayColor = {"#5559b9"} incrementAmount = {10} incrementMax = {100} percentFull={15} title = {'Coolant'}/>
-                            <VerticalTank displayColor = {"lightblue"} incrementAmount = {10} incrementMax = {100} percentFull={35} title = {'Power'}/>
+                            <VerticalTank displayColor = {"#5559b9"} incrementAmount = {10} incrementMax = {100} percentFull={this.getGlobalResource('coolant')} title = {'Coolant'}/>
+                            <VerticalTank displayColor = {"#ecffff"} incrementAmount = {10} incrementMax = {100} percentFull={this.getModuleResource('Oxygen')} title = {'Oxygen'}/>
+                            <VerticalTank displayColor = {"lightblue"} incrementAmount = {10} incrementMax = {100} percentFull={this.getModuleResource('Power')} title = {'Power'}/>
                         </Paper>
                     </div>
                     {this.renderLogOutButton()}
@@ -65,6 +80,7 @@ class CoolantController extends ModuleDefault {
         }
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.setSpinnerSpeed = this.setSpinnerSpeed.bind(this);
     }
 
     handleSliderChange(event, value) {
@@ -96,17 +112,31 @@ class CoolantController extends ModuleDefault {
         return percent
     }
 
+    getOnlineState() {
+        return this.props.functionSet['getState'](['systemStatus', 'modules', 'coolant', this.props.id, 'status']);
+    }
+
+    setSpinnerSpeed() {
+        this.props.functionSet['performAPICall'](FULL_URL + "/coolant/" + this.props.id + "/setSpin/" + Math.floor(this.state.coolantSliderValue / 10) + "/", function() {console.log("Success")}, "GET", null);
+    }
+
     render() {
-        var spinAmount = "spin_" + this.state.coolantSliderValue;
+        var spinSpeed = this.props.functionSet['getState'](['systemStatus','modules','coolant',this.props.id,'spinSpeed']) * 10;
+        var spinAmount = "spin_" + spinSpeed;
 
         var oxyFull = this.getResourceLevel('oxygen');
         var powerFull = this.getResourceLevel('power');
         var deutLevel = this.getResourceLevel('deuterium');
 
+        if (this.getOnlineState() == "Offline") {
+            spinSpeed = "OFF";
+            spinAmount = "";
+        }
+
         return (
             <Paper className = "coolantControllerContainer" elevation={20}>
                 <div className = "coolantControlLeftSide">
-                    <div className = "coolantCurrentSpeed">{this.state.coolantSliderValue}</div>
+                    <div className = "coolantCurrentSpeed">{spinSpeed}</div>
                     <div className = {spinAmount +" coolantSpinnerContainer"}>
                         <div className = "coolantSpinner"></div>
                     </div>
@@ -114,7 +144,7 @@ class CoolantController extends ModuleDefault {
                         New Speed: {this.state.coolantSliderValue}
                     </Typography>
                     <Slider value = {this.state.coolantSliderValue} onChange={this.handleSliderChange} className = "coolantLevelSlider" defaultValue={this.state.coolantSliderValue} aria-labelledby="discrete-slider" valueLabelDisplay="auto" step={10} marks min={10} max={50}/>
-                    <Button className = "setCoolantSpeedButton">Set New Speed</Button>
+                    <Button className = "setCoolantSpeedButton" onClick = {() => {this.setSpinnerSpeed()}}>Set New Speed</Button>
                 </div>
                 <div className = "coolantControlCenter">
                     <div className = "coolantCentralTitle">
