@@ -109,7 +109,7 @@ export default class DefaultMain extends ModuleDefault {
             <div className = "moduleOverviewContainer">
                 <ModuleOverview logs = {this.getLogs("reactor")} heatLevel = {this.getReactorInternalResourceLevel('moduleHeat')} module = "Reactor" powerLevel = {this.getResourceLevel('power')} coolantLevel = {this.getReactorInternalResourceLevel('moduleCoolant')} moduleStatus = {this.getModuleState('reactor')}/>
                 <ModuleOverview logs = {this.getLogs("coolant")} heatLevel = {0} module = "Coolant" powerLevel = {this.getInternalResourceLevel('coolant','power')} moduleStatus = {this.getModuleState('coolant')}/>
-                <ModuleOverview logs = {this.getLogs("thrusters")} module = "Thrusters" powerLevel = {0} coolantLevel = {0} heatLevel = {0} moduleStatus = {this.getModuleState('thrusters')}/>
+                <ModuleOverview logs = {this.getLogs("thrusters")} module = "Thrusters" powerLevel = {this.getInternalResourceLevel('thrusters','power')} coolantLevel = {this.getInternalResourceLevel('thrusters','coolant')} heatLevel = {this.getInternalResourceLevel('thrusters','heat')} moduleStatus = {this.getModuleState('thrusters')}/>
                 <ModuleOverview logs = {this.getLogs("oxyscrub")} module = "OxyScrub" powerLevel = {this.getInternalResourceLevel('oxyscrub','power')} moduleStatus = {this.getModuleState('oxyscrub')} oxygenLevel = {this.getResourceLevel('oxygen')}/>
                 <ModuleOverview logs = {this.getLogs("command")} module = "Command" powerLevel = {0} moduleStatus = {this.getModuleState('command')}/>
             </div>
@@ -147,13 +147,14 @@ class ModuleOverview extends React.Component {
             <Paper className = "moduleOverviewInnerContainer" elevation = {20}>
                     <div className = "moduleTitle">{this.props.module}</div>
                     <StatusIndicator status = {this.props.moduleStatus}/>
-                    {thrusterheat}
                     <PowerLevel title = {powerTitle} powerLevel = {this.props.powerLevel}/>
                     {coolantPower}
 
-                    <ActiveUser />
-                    
                     {oxygenLevel}
+
+                    {thrusterheat}
+
+                    <ActiveUser />
 
                     <SystemLogs module = {this.props.module} logs = {this.props.logs}/>
             </Paper>

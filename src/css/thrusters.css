@@ -137,3 +137,26 @@
     margin-top: 2%;
     margin-right: 2%;
 }
+
+.thrusterPowerButton {
+    color: white;
+    text-align: center;
+    font-size: 14px !important;
+    width: 96%;
+    margin-left: 2% !important;
+    height: 40px !important;
+    margin-top: 5px !important;
+    background-color: #803030 !important;
+}
+
+.thrusterMode {
+    color: white;
+    text-align: center;
+    font-size: 24px;
+}
+
+.thrusterModeTitle{
+    color: white;
+    text-align: center;
+    margin-top: 15px;
+}
