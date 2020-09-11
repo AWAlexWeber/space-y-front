@@ -20,7 +20,7 @@ import PopUp from './Modules/PopUp';
 import Logo from './assets/img/spacex-logo-white.png';
 import './css/main.css';
 
-const FULL_URL = "http://localhost:5000"
+const FULL_URL = "http://165.22.83.88:5000"
 
 export default class App extends React.Component {
 
@@ -105,7 +105,8 @@ export default class App extends React.Component {
         console.log("Starting interval update");
         var refMe = this;
         this.stopIntervalUpdate();
-        this.intervalUpdate = setInterval(function() {
+	this.isIntervalUpdate = true;
+        this.intervalUpdate = setTimeout(function() {
             refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", refMe.handleStatusAdvancedAllCallback, "GET", null);
         }, 500);
     }
@@ -113,14 +114,25 @@ export default class App extends React.Component {
     handleStatusAdvancedAllCallback(result) {
         // We will skip invalid results
         if (result == null || result == undefined)
-            return;
+            console.log("Skipping result...")
+	else if (! this.isIntervalUpdate) {
+	    return;
+	}
         else {
             this.modifyState("systemStatus", result['data']);
         }
+
+	// Starting another request
+	var refMe = this;
+	this.intervalUpdate = setTimeout(function() {
+		refMe.performAPICall(FULL_URL + "/engine/statusAdvancedAll", refMe.handleStatusAdvancedAllCallback, "GET", null);
+	}, 500);
+
     }
 
     stopIntervalUpdate() {
-        clearInterval(this.intervalUpdate);
+        clearTimeout(this.intervalUpdate);
+	this.isIntervalUpdate = false;
     }
 
     /* * * * * * State Management * * * * * */
